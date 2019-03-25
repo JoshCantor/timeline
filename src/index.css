@@ -2,4 +2,34 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  font-size: 14px;
+}
+
+.timeLineContainer {
+  border: 1px solid red;
+  margin: 10px;
+  padding: 10px;
+}
+
+.timeLineItemRow {
+  border: 1px solid grey;
+  position: relative;
+}
+
+.timeLineItemNameContainer {
+  border-right: 1px solid grey;
+  display: inline-block;
+}
+
+.timeLineItemName {
+  width: 225px;
+  padding: 8px;
+}
+
+.timeLineItem {
+  display: inline-block;
+  border: 1px solid blue;
+  border-radius: 3px;
+  margin: 2px;
+  position: absolute;
 }

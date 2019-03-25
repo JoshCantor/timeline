@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {createElement} from 'react';
 import { render } from 'react-dom';
+
+import TimeLine from './timeLine/timeLine.jsx';
 import timelineItems from './timelineItems';
 
-const App = () => (
-  <div>
-    <h2>Start editing to see some magic happen {'\u2728'}</h2>
-    <h3>{timelineItems.length} timeline items to render</h3>
-  </div>
-);
+import './index.css';
 
-render(<App />, document.getElementById('root'));
+render(
+  createElement(TimeLine, {items: timelineItems}),
+  document.getElementById('root')
+);
