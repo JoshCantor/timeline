@@ -2,19 +2,17 @@ import React from 'react';
 
 import {
   convertDaysToPixels,
+  getCalendar,
   getLatestEndDate,
   getTimeDifferenceInDays,
-  sortItemsByStartDateDesc
+  sortItemsByStartDateAsc
 } from '../utils';
 import TimeLineItemRow from '../timeLineItemRow/timeLineItemRow';
 
 const TimeLine = (props) => {
-  const sortedItems = sortItemsByStartDateDesc(props.items);
-  const itemWithEarliestStart = sortedItems[sortedItems.length - 1];
+  const sortedItems = sortItemsByStartDateAsc(props.items);
+  const itemWithEarliestStart = sortedItems[0];
   const earliestStartDate = new Date(itemWithEarliestStart.start);
-  const latestEndDate = getLatestEndDate(sortedItems);
-  const totalNumberOfDays = getTimeDifferenceInDays(earliestStartDate, latestEndDate);
-
 
   const renderTimeLineItemRows = (items) => {
     return items.map((item) => {
@@ -23,17 +21,24 @@ const TimeLine = (props) => {
     });
   };
 
-  // const renderColumnHeaders = (items) => {
-  //   return (
-  //     <div>
-  //
-  //     </div>
-  //   );
-  // };
+  const renderColumnHeaders = (items) => {
+    console.log(getCalendar(items));
+    return (
+      <div className="timeLineItemRow">
+        <div className="timeLineItemNameContainer">
+          <div className="timeLineItemName">
+            Items
+          </div>
+        </div>
+        {/*<div className="timeLineItem" style={style}/>*/}
+      </div>
+    );
+  };
 
   const renderTimeLine = () => {
     return (
       <div className="timeLineContainer">
+        {renderColumnHeaders(sortedItems)}
         {renderTimeLineItemRows(sortedItems)}
       </div>
     );

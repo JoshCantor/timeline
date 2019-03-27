@@ -6,14 +6,23 @@ body {
 }
 
 .timeLineContainer {
-  border: 1px solid red;
-  margin: 10px;
-  padding: 10px;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .timeLineItemRow {
-  border: 1px solid grey;
-  position: relative;
+  border-right: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-left: 1px solid grey;
+  margin-left: 10px;
+}
+
+.timeLineItemRow:first-child {
+  border-top: 1px solid grey;
+}
+
+.timeLineItemRow:last-child {
+  border-top: none;
 }
 
 .timeLineItemNameContainer {
@@ -30,6 +39,4 @@ body {
   display: inline-block;
   border: 1px solid blue;
   border-radius: 3px;
-  margin: 2px;
-  position: absolute;
 }

@@ -6,7 +6,9 @@ const TimeLineItemRow = (props) => {
   const {item, leftOffsetDays} = props;
   const itemDays = getTimeDifferenceInDays(new Date(item.start), new Date(item.end));
   const style = {
-    left: convertDaysToPixels(leftOffsetDays),
+    backgroundColor: 'blue',
+    height: '10px',
+    marginLeft: convertDaysToPixels(leftOffsetDays),
     width: convertDaysToPixels(itemDays),
   };
 
@@ -17,8 +19,8 @@ const TimeLineItemRow = (props) => {
           {item.name}
         </div>
       </div>
-      <div className="timeLineItem" style={style}>{item.start}</div>
-  </div>
+      <div className="timeLineItem" style={style}/>
+    </div>
   );
 };
 
