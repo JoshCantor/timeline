@@ -1,8 +1,10 @@
 import React from 'react';
 
+import TimeLineRow from '../timeLineRow/timeLineRow.jsx';
 import {convertDaysToPixels, getTimeDifferenceInDays} from '../utils';
 
-const TimeLineItemRow = (props) => {
+
+const TimeLineItem = (props) => {
   const {item, leftOffsetDays} = props;
   const itemDays = getTimeDifferenceInDays(new Date(item.start), new Date(item.end));
   const style = {
@@ -13,15 +15,10 @@ const TimeLineItemRow = (props) => {
   };
 
   return (
-    <div className="timeLineItemRow">
-      <div className="timeLineItemNameContainer">
-        <div className="timeLineItemName">
-          {item.name}
-        </div>
-      </div>
+    <TimeLineRow label={props.item.name}>
       <div className="timeLineItem" style={style}/>
-    </div>
+    </TimeLineRow>
   );
 };
 
-export default TimeLineItemRow;
+export default TimeLineItem

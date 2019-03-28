@@ -10,27 +10,28 @@ body {
   white-space: nowrap;
 }
 
-.timeLineItemRow {
+.timeLineRow {
   border-right: 1px solid grey;
   border-bottom: 1px solid grey;
   border-left: 1px solid grey;
   margin-left: 10px;
+  white-space: nowrap;
 }
 
-.timeLineItemRow:first-child {
+.timeLineRow:first-child {
   border-top: 1px solid grey;
 }
 
-.timeLineItemRow:last-child {
+.timeLineRow:last-child {
   border-top: none;
 }
 
-.timeLineItemNameContainer {
+.timeLineRowNameContainer {
   border-right: 1px solid grey;
   display: inline-block;
 }
 
-.timeLineItemName {
+.timeLineRowName {
   width: 225px;
   padding: 8px;
 }
@@ -39,4 +40,15 @@ body {
   display: inline-block;
   border: 1px solid blue;
   border-radius: 3px;
+}
+
+.timeLineHeaderYears {
+  display: inline-block;
+}
+
+.timeLineHeaderYear,
+.timeLineHeaderMonth {
+  display: inline-block;
+  border-right: 1px solid grey;
+  text-align: center;
 }
