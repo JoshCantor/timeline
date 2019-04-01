@@ -1,9 +1,9 @@
 import {PIXELS_IN_A_DAY} from './constants';
 
 
-export const getTimeZoneAwareDate = (dateStr) => {
+export const getTimeZoneAwareDateFromStr = (dateStr) => {
   const dateUtc = new Date(dateStr);
-  return new Date(dateUtc.getTime() + dateUtc.getTimezoneOffset() * 60000)
+  return new Date(dateUtc.getTime() + dateUtc.getTimezoneOffset() * 1000 * 60);
 };
 
 export const convertDaysToPixels = (numDays) => {
@@ -12,7 +12,7 @@ export const convertDaysToPixels = (numDays) => {
 
 export const sortItemsByStartDateAsc = (items) => {
   return items.sort((a, b) => {
-    return getTimeZoneAwareDate(a.start) - getTimeZoneAwareDate(b.start);
+    return getTimeZoneAwareDateFromStr(a.start) - getTimeZoneAwareDateFromStr(b.start);
   });
 };
 
@@ -38,8 +38,8 @@ const addToCalendarIfNotPresent = (calendar, date) => {
 export const getCalendar = (items) => {
   const calendar = {};
   items.forEach((item) => {
-    const startDate = getTimeZoneAwareDate(item.start);
-    const endDate = getTimeZoneAwareDate(item.end);
+    const startDate = getTimeZoneAwareDateFromStr(item.start);
+    const endDate = getTimeZoneAwareDateFromStr(item.end);
     addToCalendarIfNotPresent(calendar, startDate);
     addToCalendarIfNotPresent(calendar, endDate);
   });

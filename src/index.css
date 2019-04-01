@@ -49,8 +49,14 @@ body {
 }
 
 .timeLineHeaderYear {
+  border-right: 1px solid grey;
   text-align: center;
   width: 100%;
+}
+
+.timeLineHeaderYearCalendar {
+  display: inline-block;
+  border-right: 1px solid grey;
 }
 
 .timeLineHeaderMonth {
@@ -63,6 +69,7 @@ body {
   vertical-align: bottom;
 }
 
+.timeLineHeaderYearCalendar:last-child,
 .timeLineHeaderMonth:last-child {
   border-right: none;
 }

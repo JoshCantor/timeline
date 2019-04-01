@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
 import {MONTH_NUMBER_TO_NAME} from '../constants';
 import {convertDaysToPixels, getCalendar} from '../utils';
@@ -22,10 +22,10 @@ const TimeLineHeader = (props) => {
     return years.map((year) => {
       const currentYearCalendar = calendar[year];
       return (
-        <Fragment>
+        <div className="timeLineHeaderYearCalendar">
           <div className="timeLineHeaderYear">{year}</div>
           <div className="timeLineHeaderMonths">{renderMonths(currentYearCalendar)}</div>
-        </Fragment>
+        </div>
       );
     });
   };

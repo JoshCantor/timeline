@@ -1,4 +1,4 @@
-export const PIXELS_IN_A_DAY = 15;
+export const PIXELS_IN_A_DAY = 10;
 
 export const MONTH_NUMBER_TO_NAME = {
   1: 'January',
