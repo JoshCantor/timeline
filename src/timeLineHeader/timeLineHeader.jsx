@@ -1,42 +1,41 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
-import {MONTH_NUMBER_TO_NAME, PIXELS_IN_A_DAY} from '../constants';
-import {convertDaysToPixels, getDaysInCalendarYear, getCalendar} from '../utils';
+import {MONTH_NUMBER_TO_NAME} from '../constants';
+import {convertDaysToPixels, getCalendar} from '../utils';
 import TimeLineRow from '../timeLineRow/timeLineRow.jsx';
 
 const TimeLineHeader = (props) => {
-  const calendar = getCalendar(props.items);
-  const years = Object.keys(calendar);
 
-  const renderYears = (years) => {
+  const renderMonths = (currentYearCalendar) => {
+    const monthNumbers = Object.keys(currentYearCalendar);
+    return monthNumbers.map((monthNum) => {
+      const daysInMonth = currentYearCalendar[monthNum];
+      const daysInPixels = convertDaysToPixels(daysInMonth);
+      const monthName = MONTH_NUMBER_TO_NAME[monthNum];
+      const style = {width: daysInPixels};
+      return <div className="timeLineHeaderMonth" style={style}>{monthName}</div>;
+    });
+  };
+
+  const renderYearsAndMonths = (calendar) => {
+    const years = Object.keys(calendar);
     return years.map((year) => {
-      const daysInYear = getDaysInCalendarYear(calendar, year);
-      const yearInPixels = convertDaysToPixels(daysInYear);
-      const style = {width: yearInPixels};
+      const currentYearCalendar = calendar[year];
       return (
-        <div className="timeLineHeaderYear" style={style}>
-          {year}
-        </div>
+        <Fragment>
+          <div className="timeLineHeaderYear">{year}</div>
+          <div className="timeLineHeaderMonths">{renderMonths(currentYearCalendar)}</div>
+        </Fragment>
       );
     });
   };
 
-  // const currentYear = calendar[year];
-  // const currentYearMonths = Object.keys(currentYear);
-
-  // const renderMonths = (year, monthNumbers) => {
-  //   return monthNumbers.map((monthNum) => {
-  //     const monthName = MONTH_NUMBER_TO_NAME[monthNum];
-  //     const daysInMonth
-  //     const style = {width: }
-  //     return <div className="timeLineHeaderMonth">{monthName}</div>;
-  //   });
-  // };
-
+  const calendar = getCalendar(props.items);
   return (
     <TimeLineRow label="Items">
-      <div className="timeLineHeaderYears">{renderYears(years)}</div>
-      {/*<div>{renderMonths(months)}</div>*/}
+      <div className="timeLineHeader">
+        {renderYearsAndMonths(calendar)}
+      </div>
     </TimeLineRow>
   );
 };

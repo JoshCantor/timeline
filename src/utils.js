@@ -45,14 +45,3 @@ export const getCalendar = (items) => {
   });
   return calendar;
 };
-
-export const getDaysInCalendarYear = (calendar, year) => {
-  let daysInYear = 0;
-  const calendarYear = calendar[year];
-  for (const month in calendarYear) {
-    if (calendarYear.hasOwnProperty(month)) {
-      daysInYear += calendarYear[month];
-    }
-  }
-  return daysInYear;
-};

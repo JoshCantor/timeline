@@ -7,6 +7,7 @@ body {
 
 .timeLineContainer {
   display: inline-block;
+  margin-top: 30px;
   white-space: nowrap;
 }
 
@@ -14,7 +15,7 @@ body {
   border-right: 1px solid grey;
   border-bottom: 1px solid grey;
   border-left: 1px solid grey;
-  margin-left: 10px;
+  margin-left: 30px;
   white-space: nowrap;
 }
 
@@ -42,13 +43,26 @@ body {
   border-radius: 3px;
 }
 
-.timeLineHeaderYears {
+.timeLineHeader {
   display: inline-block;
+  vertical-align: bottom;
 }
 
-.timeLineHeaderYear,
-.timeLineHeaderMonth {
-  display: inline-block;
-  border-right: 1px solid grey;
+.timeLineHeaderYear {
   text-align: center;
+  width: 100%;
+}
+
+.timeLineHeaderMonth {
+  box-sizing: border-box;
+  border-top: 1px solid grey;
+  border-right: 1px solid grey;
+  display: inline-block;
+  height: 16px;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.timeLineHeaderMonth:last-child {
+  border-right: none;
 }
