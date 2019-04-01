@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  getTimeDifferenceInDays,
   getTimeZoneAwareDateFromStr,
   sortItemsByStartDateAsc
 } from '../utils';
@@ -19,9 +18,7 @@ const TimeLine = (props) => {
 
   const renderTimeLineItems = (items) => {
     return items.map((item) => {
-      const itemStartDate = getTimeZoneAwareDateFromStr(item.start);
-      const leftOffsetDays = getTimeDifferenceInDays(firstDayOfStartMonth, itemStartDate);
-      return <TimeLineItem item={item} leftOffsetDays={leftOffsetDays} key={item.id} />;
+      return <TimeLineItem item={item} firstDayOfStartMonth={firstDayOfStartMonth} key={item.id} />;
     });
   };
 
