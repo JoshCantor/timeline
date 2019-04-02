@@ -1,13 +1,13 @@
 import React from 'react';
 
 import TimeLineRow from '../timeLineRow/timeLineRow.jsx';
-import {convertDaysToPixels, getTimeDifferenceInDays, getTimeZoneAwareDateFromStr} from '../utils';
+import {convertDaysToPixels, getTimeDifferenceInDays, getTimezoneAwareDateFromStr} from '../utils';
 
 
 const TimeLineItem = (props) => {
   const {item, firstDayOfStartMonth} = props;
-  const startDate = getTimeZoneAwareDateFromStr(item.start);
-  const endDate = getTimeZoneAwareDateFromStr(item.end);
+  const startDate = getTimezoneAwareDateFromStr(item.start);
+  const endDate = getTimezoneAwareDateFromStr(item.end);
   const itemDays = getTimeDifferenceInDays(startDate, endDate);
   const leftOffsetDays = getTimeDifferenceInDays(firstDayOfStartMonth, startDate);
   const style = {

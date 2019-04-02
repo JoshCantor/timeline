@@ -1,9 +1,14 @@
 import {PIXELS_IN_A_DAY} from './constants';
 
 
-export const getTimeZoneAwareDateFromStr = (dateStr) => {
+export const getTimeZoneAwareDateFromDate = (dateUtc) => {
+  const timeZoneOffsetMS = dateUtc.getTimezoneOffset() * 60 * 1000;
+  return new Date(dateUtc.getTime() + timeZoneOffsetMS);
+};
+
+export const getTimezoneAwareDateFromStr = (dateStr) => {
   const dateUtc = new Date(dateStr);
-  return new Date(dateUtc.getTime() + dateUtc.getTimezoneOffset() * 1000 * 60);
+  return getTimeZoneAwareDateFromDate(dateUtc);
 };
 
 export const convertDaysToPixels = (numDays) => {
@@ -12,19 +17,18 @@ export const convertDaysToPixels = (numDays) => {
 
 export const sortItemsByStartDateAsc = (items) => {
   return items.sort((a, b) => {
-    return getTimeZoneAwareDateFromStr(a.start) - getTimeZoneAwareDateFromStr(b.start);
+    return getTimezoneAwareDateFromStr(a.start) - getTimezoneAwareDateFromStr(b.start);
   });
 };
 
 export const getTimeDifferenceInDays = (startDate, endDate) => {
-  const timeDistance = Math.abs(endDate.getTime() - startDate.getTime());
-  return Math.ceil(timeDistance / (1000 * 60 * 60 * 24));
+  const MS_PER_DAY = 1000 * 60 * 60 * 24;
+  const timeDistanceInMS = Math.abs(endDate.getTime() - startDate.getTime());
+  return timeDistanceInMS / MS_PER_DAY;
 };
 
 const addToCalendarIfNotPresent = (calendar, year, monthZeroIndexed) => {
-  // const year = date.getFullYear();
-  // const monthZeroIndex = date.getMonth();
-  const month = monthZeroIndex + 1;
+  const month = monthZeroIndexed + 1;
   const daysInMonth = new Date(year, month, 0).getDate();
 
   if (!calendar[year]) {
@@ -38,7 +42,7 @@ const addToCalendarIfNotPresent = (calendar, year, monthZeroIndexed) => {
 const getLatestEndDate = (items) => {
   let latestEndDate = null;
   items.forEach((item) => {
-    const currentEndDate = new Date(item.end);
+    const currentEndDate = getTimezoneAwareDateFromStr(item.end);
     if (!latestEndDate || currentEndDate > latestEndDate) {
       latestEndDate = currentEndDate;
     }
@@ -48,7 +52,7 @@ const getLatestEndDate = (items) => {
 
 export const getCalendar = (sortedItems) => {
   const itemWithEarliestStart = sortedItems[0];
-  const earliestStartDate = getTimeZoneAwareDateFromStr(itemWithEarliestStart.start);
+  const earliestStartDate = getTimezoneAwareDateFromStr(itemWithEarliestStart.start);
   const latestEndDate = getLatestEndDate(sortedItems);
   const earliestStartDateYear = earliestStartDate.getFullYear();
   const latestEndDateYear = latestEndDate.getFullYear();
@@ -59,33 +63,20 @@ export const getCalendar = (sortedItems) => {
 
   let year = earliestStartDateYear;
   while (year <= latestEndDateYear) {
-    const month = 0;
-    const december = 11;
+    let monthToAdd = 0;
+    let endMonth = 11;
 
     if (year === earliestStartDateYear) {
-      let month = earliestStartDateMonth;
-      while (month <= december) {
-        addToCalendarIfNotPresent(calendar, year, month);
-        month ++
-      }
+      monthToAdd = earliestStartDateMonth;
     } else if (year === latestEndDateYear) {
-      let mon
+      endMonth = latestEndDateMonth;
     }
 
+    while (monthToAdd <= endMonth) {
+      addToCalendarIfNotPresent(calendar, year, monthToAdd);
+      monthToAdd ++
+    }
     year++
   }
-  // items.forEach((item) => {
-  //   const startDate = getTimeZoneAwareDateFromStr(item.start);
-  //   const endDate = getTimeZoneAwareDateFromStr(item.end);
-  //   const startMonth = startDate.getMonth();
-  //   const endMonth = startDate.getMonth();
-  //
-  //   //
-  //   if (endMonth - startMonth <= 1) {
-  //     addToCalendarIfNotPresent(calendar, startDate);
-  //     addToCalendarIfNotPresent(calendar, endDate);
-  //   }
-  //
-  // });
   return calendar;
 };
